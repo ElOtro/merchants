@@ -1,0 +1,5 @@
+.git
+.dockerignore
+.env
+merchant-api/vendor/bundle/
+merchant-api/tmp/

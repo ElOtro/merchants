@@ -3,3 +3,4 @@
 .env
 merchant-api/vendor/bundle/
 merchant-api/tmp/
+merchant-app/node_modules/

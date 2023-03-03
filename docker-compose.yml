@@ -19,7 +19,7 @@ services:
     volumes:
       - merchants-redis:/var/lib/redis/data
 
-  merchants:
+  merchants-api:
     container_name: merchants-api
     build:
       context: .
@@ -29,7 +29,7 @@ services:
       - postgres
       - redis
     ports:
-      - '3000:3000'
+      - '4000:4000'
     env_file:
       - .env
     environment:
@@ -39,15 +39,24 @@ services:
     container_name: merchants-sidekiq
     build:
       context: .
-      #args:
-      #  USER_ID: "${USER_ID:-1000}"
-      #  GROUP_ID: "${GROUP_ID:-1000}"
     command: bundle exec sidekiq 
     links:
       - postgres
       - redis
     env_file:
       - .env
+  
+  merchant-app:
+    container_name: merchants-app
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    ports:
+      - 3000:3000
+    volumes:
+      - ./merchant-app/src:/merchant-app/src
+    depends_on:
+      - merchants-api
 
 volumes:
   merchants-postgres:

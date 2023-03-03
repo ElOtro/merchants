@@ -1,0 +1,7 @@
+FROM node:16
+WORKDIR /app
+COPY merchants-app/ .
+RUN yarn install
+EXPOSE 4000
+
+CMD ["yarn","start"]

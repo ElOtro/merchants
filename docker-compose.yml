@@ -46,7 +46,7 @@ services:
     env_file:
       - .env
   
-  merchant-app:
+  merchants-app:
     container_name: merchants-app
     build:
       context: .
@@ -54,9 +54,11 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./merchant-app/src:/merchant-app/src
+      - ./merchants-app/src:/merchants-app/src
     depends_on:
       - merchants-api
+    environment:
+      - WATCHPACK_POLLING=true
 
 volumes:
   merchants-postgres:

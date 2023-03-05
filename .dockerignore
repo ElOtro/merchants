@@ -1,6 +1,6 @@
 .git
 .dockerignore
 .env
-merchant-api/vendor/bundle/
-merchant-api/tmp/
-merchant-app/node_modules/
+merchants-api/vendor/bundle/
+merchants-api/tmp/
+merchants-app/node_modules/

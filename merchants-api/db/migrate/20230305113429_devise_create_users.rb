@@ -6,7 +6,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       ## Custom
       t.boolean :active, default: false, index: true, comment: "activated or not"
       t.string :name, comment: "name"
-      t.integer :role, default: 1, comment: "role (1 - merchant, 2 - admin)"
+      t.integer :role, default: 1, comment: "role"
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""

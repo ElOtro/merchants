@@ -1,0 +1,14 @@
+delete:
+  tags:
+    - Logout
+  description: Delete session.
+  summary:    Delete session.
+  parameters:
+  - name: Authorization
+    in: header
+    type: string
+    required: true
+    description: Bearer token.
+  responses:
+    '204':
+      description: successful

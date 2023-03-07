@@ -56,3 +56,5 @@ gem 'devise'
 gem 'devise-jwt'
 gem "rubocop-rails", require: false
 gem "rubocop-rspec", require: false
+gem 'kaminari'
+gem 'rswag'

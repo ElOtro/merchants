@@ -1,0 +1,24 @@
+---
+openapi: 3.0.1
+info:
+  title: Merchants API
+  version: v1
+paths:
+  "/users":
+    $ref: './users/registration.yaml'
+  "/users/sign_in":
+    $ref: './users/login.yaml'
+  "/users/sign_out":
+    $ref: './users/logout.yaml'
+servers:
+  - url: "{protocol}://{server}"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      server:
+        enum:
+          - localhost:4000
+        default: localhost:4000

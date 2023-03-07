@@ -37,10 +37,10 @@ describe Users::SessionsController, type: :request do
   end
 
   context 'When logging out' do
-    it 'returns 401' do
+    it 'returns 204' do
       delete sign_out_url
 
-      expect(response).to have_http_status(401)
+      expect(response).to have_http_status(204)
     end
   end
 

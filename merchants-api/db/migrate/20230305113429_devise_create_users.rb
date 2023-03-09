@@ -2,14 +2,18 @@
 
 class DeviseCreateUsers < ActiveRecord::Migration[7.0]
   def change
+    enable_extension 'uuid-ossp'
+
     create_table :users do |t|
       ## Custom
-      t.boolean :active, default: false, index: true, comment: "activated or not"
-      t.string :name, comment: "name"
-      t.integer :role, default: 1, comment: "role"
+      t.boolean :status, default: false, index: true, comment: 'activated or not'
+      t.string :name, comment: 'name'
+      t.string :description, comment: 'description'
+      t.string :type, comment: 'type of user'
+      t.uuid :uuid, null: false, default: 'uuid_generate_v4()', index: true
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: ''
+      t.string :encrypted_password, null: false, default: ''
 
       ## Recoverable
       t.string   :reset_password_token
@@ -35,7 +39,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
-
 
       t.timestamps null: false
     end

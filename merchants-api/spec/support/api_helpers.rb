@@ -1,5 +1,4 @@
 module ApiHelpers
-
   def sign_in_with_api(user)
     post '/users/sign_in', params: {
       user: {
@@ -8,5 +7,4 @@ module ApiHelpers
       }
     }
   end
-
 end

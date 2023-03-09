@@ -10,22 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_05_140041) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_011753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "jwt_denylist", force: :cascade do |t|
-    t.string "jti", null: false, comment: "JWT ID"
-    t.datetime "exp", null: false, comment: "exp claim"
+  create_table "transactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "parent_id"
+    t.string "parent_type"
+    t.string "type"
+    t.uuid "uuid"
+    t.bigint "amount"
+    t.integer "status"
+    t.text "customer_email", default: "", null: false
+    t.text "customer_phone"
+    t.text "notification_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["jti"], name: "index_jwt_denylist_on_jti"
+    t.index ["parent_id"], name: "index_transactions_on_parent_id"
+    t.index ["parent_type"], name: "index_transactions_on_parent_type"
+    t.index ["status"], name: "index_transactions_on_status"
+    t.index ["type"], name: "index_transactions_on_type"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
+    t.index ["uuid"], name: "index_transactions_on_uuid"
   end
 
   create_table "users", force: :cascade do |t|
-    t.boolean "active", default: false, comment: "activated or not"
+    t.boolean "status", default: false, comment: "activated or not"
     t.string "name", comment: "name"
-    t.integer "role", default: 1, comment: "role (1 - merchant, 2 - admin)"
+    t.string "description", comment: "description"
+    t.string "type", comment: "type of user"
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -33,9 +49,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_140041) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["active"], name: "index_users_on_active"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["status"], name: "index_users_on_status"
+    t.index ["uuid"], name: "index_users_on_uuid"
   end
 
+  add_foreign_key "transactions", "users"
 end

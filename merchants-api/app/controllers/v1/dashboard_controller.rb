@@ -1,4 +1,4 @@
-class V1::DashboardController < ApplicationController
+class V1::DashboardController < V1::BaseController
   before_action :authenticate_user!
 
   def index

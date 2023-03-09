@@ -1,10 +1,9 @@
 require 'rails_helper'
 
 describe Users::RegistrationsController, type: :request do
-
-  let (:user) { build_user }
-  let (:existing_user) { create_user }
-  let (:signup_url) { '/users' }
+  let(:user) { build_user }
+  let(:existing_user) { create_user }
+  let(:signup_url) { '/users' }
 
   context 'When creating a new user' do
     before do
@@ -28,5 +27,4 @@ describe Users::RegistrationsController, type: :request do
       expect(json['user']['email']).to eq(user.email)
     end
   end
-
 end

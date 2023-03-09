@@ -8,18 +8,14 @@ post:
       application/json:
         schema:
           properties:
-            user:
-              type: object
-              requited: true
-              properties:
-                email:
-                  type: string
-                  description: User's email.
-                  required: true
-                password:
-                  type: string
-                  description: User's password.
-                  required: true
+            email:
+              type: string
+              description: User's email.
+              required: true
+            password:
+              type: string
+              description: User's password.
+              required: true
   responses:
     '200':
       description: successful
@@ -35,3 +31,17 @@ post:
               email: "admin@example.com"
               created_at: "2023-03-05T17:37:48.839Z"
               updated_at: "2023-03-05T17:37:48.839Z"
+delete:
+  tags:
+    - Logout
+  description: Delete session.
+  summary:    Delete session.
+  parameters:
+  - name: Authorization
+    in: header
+    type: string
+    required: true
+    description: Bearer token.
+  responses:
+    '204':
+      description: successful

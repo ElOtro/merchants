@@ -1,14 +1,13 @@
 require 'rails_helper'
 
 describe Users::SessionsController, type: :request do
-
-  let (:user) { create_user }
-  let (:sign_in_url) { '/users/sign_in' }
-  let (:sign_out_url) { '/users/sign_out' }
+  let(:user) { create_user }
+  let(:sign_in_url) { '/users/sign_in' }
+  let(:sign_out_url) { '/users/sign_out' }
 
   context 'When logging in' do
     before do
-        sign_in_with_api(user)
+      sign_in_with_api(user)
     end
 
     it 'returns a token' do
@@ -33,7 +32,6 @@ describe Users::SessionsController, type: :request do
     it 'returns 401' do
       expect(response.status).to eq(401)
     end
-
   end
 
   context 'When logging out' do
@@ -43,5 +41,4 @@ describe Users::SessionsController, type: :request do
       expect(response).to have_http_status(204)
     end
   end
-
 end

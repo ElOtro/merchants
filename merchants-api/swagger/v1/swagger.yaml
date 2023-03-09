@@ -6,10 +6,8 @@ info:
 paths:
   "/users":
     $ref: './users/registration.yaml'
-  "/users/sign_in":
+  "/auth":
     $ref: './users/login.yaml'
-  "/users/sign_out":
-    $ref: './users/logout.yaml'
 servers:
   - url: "{protocol}://{server}"
     variables:
@@ -21,4 +19,4 @@ servers:
       server:
         enum:
           - localhost:4000
-        default: localhost:4000
+        default: localhost:4000/v1

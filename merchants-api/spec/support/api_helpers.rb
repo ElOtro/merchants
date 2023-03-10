@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiHelpers
   def sign_in_with_api(user)
     post '/users/sign_in', params: {

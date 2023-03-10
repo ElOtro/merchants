@@ -1,24 +1,24 @@
 post:
   tags:
     - Registration
-  description: User's registration by email and password.
-  summary:    User's registration by email and password.
+  description: Admin's registration by email and password.
+  summary:    Admin's registration by email and password.
   requestBody:
     content:
       application/json:
         schema:
           properties:
-            user:
+            admin:
               type: object
               requited: true
               properties:
                 email:
                   type: string
-                  description: User's email.
+                  description: Admin's email.
                   required: true
                 password:
                   type: string
-                  description: User's password.
+                  description: Admin's password.
                   required: true
   responses:
     '200':

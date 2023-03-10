@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthorizeTransaction < Transaction
   has_many :transactions, as: :parent, dependent: :destroy
 
@@ -11,14 +13,12 @@ class AuthorizeTransaction < Transaction
 
     event :pending do
       after do
-        
       end
       transitions from: [:approved], to: :pending
     end
 
     event :approving do
       after do
-        
       end
       transitions from: [:pending], to: :approved
     end

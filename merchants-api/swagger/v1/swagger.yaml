@@ -4,10 +4,12 @@ info:
   title: Merchants API
   version: v1
 paths:
-  "/users":
-    $ref: './users/registration.yaml'
+  "/admins":
+    $ref: './admins/registration.yaml'
   "/auth":
-    $ref: './users/login.yaml'
+    $ref: './admins/login.yaml'
+  "/merchants/auth":
+    $ref: './merchants/login.yaml'
 servers:
   - url: "{protocol}://{server}"
     variables:

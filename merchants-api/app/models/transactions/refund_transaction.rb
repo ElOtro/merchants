@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RefundTransaction < Transaction
-  belongs_to :parent, -> { where status: [:approved, :refunded] }, polymorphic: true
+  belongs_to :parent, -> { where status: %i[approved refunded] }, polymorphic: true
 
   aasm :status, namespace: :status, column: :status, enum: true, whiny_persistence: false do
     state :pending, initial: true
@@ -8,7 +10,7 @@ class RefundTransaction < Transaction
 
     event :approving do
       after do
-        parent&.refunding
+        parent&.refunding!
       end
       transitions from: [:pending], to: :approved
     end

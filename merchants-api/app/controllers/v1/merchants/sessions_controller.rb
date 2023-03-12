@@ -25,7 +25,7 @@ module V1
 
       def generate_jwt(resource)
         JWT.encode({ sub: resource.id, exp: 1.days.from_now.to_i, iss: 'merchant-api', aud: 'merchant-api' },
-                   Rails.application.secrets.secret_key_base, 'HS256')
+                   ENV['MERCHANT_JWT_SECRET_KEY'], 'HS256')
       end
 
       def respond_with(resource, _opts = {})

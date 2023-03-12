@@ -8,8 +8,12 @@ paths:
     $ref: './admins/registration.yaml'
   "/auth":
     $ref: './admins/login.yaml'
+  "/dashboard":
+    $ref: './dashboard.yaml'
   "/merchants/auth":
     $ref: './merchants/login.yaml'
+  "/payments":
+    $ref: './payments/payment.yaml'
 servers:
   - url: "{protocol}://{server}"
     variables:
@@ -22,3 +26,9 @@ servers:
         enum:
           - localhost:4000
         default: localhost:4000/v1
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

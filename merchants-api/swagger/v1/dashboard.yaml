@@ -1,0 +1,10 @@
+get:
+  description: Dashboard
+  tags:
+  - Dashboard
+  responses:
+    '200':
+      description: Dashboard
+  security:
+  - bearerAuth: []
+    

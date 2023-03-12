@@ -6,6 +6,7 @@ module Auth
 
     # Check for auth headers - if present, decode or send unauthorized response (called always to allow current_admin)
     def authenticate_request
+      puts request.headers['Authorization']
       return unless request.headers['Authorization'].present?
 
       begin
@@ -26,7 +27,7 @@ module Auth
 
     # set Devise's current_admin using decoded JWT instead of session
     def current_admin
-      @current_admin ||= super || Admin.find(@admin_id)
+      @current_admin ||= super || ::Admin.find(@admin_id)
     end
 
     # check that authenticate_admin has successfully returned @admin_id (admin is authenticated)

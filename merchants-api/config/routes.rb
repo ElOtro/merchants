@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   namespace :v1, defaults: { format: :json } do
     resources :dashboard, only: :index
-    resources :payments, only: :create, defaults: { format: :json, format: :xml }
+    resources :payments, only: :create
   end
 
   match '*a', to: 'errors#routing', via: %i[get post]

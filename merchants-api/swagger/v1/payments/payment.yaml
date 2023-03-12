@@ -1,0 +1,62 @@
+post:
+  tags:
+    - Transaction
+  description: Incoming transaction.
+  summary:    Incoming transaction.
+  consumes:
+    - application/json
+    - application/xml
+  produces:
+    - application/json
+    - application/xml
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            payment:
+              type: object
+              requited: true
+              properties:
+                type:
+                  type: string
+                  description: Type of transaction.
+                  required: true
+                  enum:
+                  - authorize
+                  - capture
+                  - refund
+                parent_id:
+                  type: string
+                  description: Parent of transaction.
+                amount:
+                  type: integer
+                  description: Amount of transaction.
+                customer_email:
+                  type: string
+                  description: Email of customer.
+                customer_phone:
+                  type: string
+                  description: Phone of customer.
+                notification_url:
+                  type: string
+                  description: URL for notification.
+                  required: true
+  responses:
+    200:
+      description: successful
+      content:
+        application/json:
+          example:
+            payment:
+              type: authorize
+              parent_id: null
+              amount: 10000
+              customer_email: "customer@example.com"
+              customer_phone: "+1 000 000 000"
+              notification_url: "http://example.com/notifications"
+      404:
+        description: Merchant not found
+        content: {}
+  security:
+  - bearerAuth: []

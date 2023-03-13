@@ -46,19 +46,19 @@ services:
     env_file:
       - .env
   
-  # merchants-app:
-  #   container_name: merchants-app
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.react
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - ./merchants-app/src:/merchants-app/src
-  #   depends_on:
-  #     - merchants-api
-  #   environment:
-  #     - WATCHPACK_POLLING=true
+  merchants-app:
+    container_name: merchants-app
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    ports:
+      - 3000:3000
+    volumes:
+      - ./merchants-app/src:/merchants-app/src
+    depends_on:
+      - merchants-api
+    environment:
+      - WATCHPACK_POLLING=true
 
 volumes:
   merchants-postgres:

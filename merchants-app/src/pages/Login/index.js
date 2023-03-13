@@ -11,9 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
-  // setPassword is here for demonstration purposes,
-  // for calling credential error
-  // eslint-disable-next-line no-unused-vars
+  
   const [email, setEmail] = useState("admin@example.com");
   const [password, setPassword] = useState("12345678");
   const [credentialError, setCredentialError] = useState(false);

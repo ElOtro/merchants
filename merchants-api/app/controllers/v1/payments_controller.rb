@@ -9,15 +9,8 @@ module V1
     def create
       # create new Transaction Object from factories
       transaction = Factories::Transactions::Base.for(current_merchant, payment_params).build
-      ActiveRecord::Base.transaction do
-        transaction.save!
-        # transaction.validate_transaction!
-      rescue StandardError => e
-        transaction.errors.add(:base, e.message)
-      end
-
-      if transaction.valid?
-        payload = V1::TransactionSerializer.new(transaction).to_hash.dig(:data, :attributes)
+      if transaction.valid? && transaction.save
+        payload = V1::TransactionPaymentSerializer.new(transaction).to_hash.dig(:data, :attributes)
 
         render json: { data: payload }, status: :created
       else

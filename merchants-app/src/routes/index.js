@@ -3,8 +3,9 @@ import Login from "../pages/Login";
 import NoMatch from "../pages/404";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
-import Transactions from "../pages/Transactions";
-import Merchants from "../pages/Merchants";
+import Transactions from "../pages/Transactions/List";
+import Merchants from "../pages/Merchants/List";
+import Merchant from "../pages/Merchants/Form";
 import PrivateRoute from "./PrivateRoute";
 
 import { Routes, Route } from "react-router-dom";
@@ -43,6 +44,14 @@ const AppRoutes = () => (
         element={
           <PrivateRoute>
             <Merchants />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/merchants/:id"
+        element={
+          <PrivateRoute>
+            <Merchant />
           </PrivateRoute>
         }
       />

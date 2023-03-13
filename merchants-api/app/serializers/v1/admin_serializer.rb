@@ -2,7 +2,7 @@
 
 module V1
   # Serializer for users
-  class UserSerializer
+  class AdminSerializer
     include JSONAPI::Serializer
     attributes
   end

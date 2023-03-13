@@ -3,16 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe V1::DashboardController, type: :request do
-  let(:user) { create_user }
-  let(:sign_in_url) { '/users/sign_in' }
+  let(:admin) { create_admin }
 
   describe 'GET /index' do
     context 'When get in dashboard' do
       before do
-        sign_in_with_api(user)
+        auth_admin_with_api(admin)
       end
 
       it 'returns 200' do
+        get '/v1/dashboard',
+            headers: { 'Authorization': "Bearer #{json['token']}" },
+            as: :json
         expect(response.status).to eq(200)
       end
     end

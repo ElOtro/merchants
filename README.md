@@ -4,10 +4,13 @@ Demo
 ## How to run
 
 docker compose build
+
 docker compose run --rm merchants-api bin/rails db:migrate
+
 docker compose up
 
 If you want to fill database tables with test data, run: 
+
 docker compose run --rm merchants-api bin/rails db:seed
 
 ## Swagger Merchants API

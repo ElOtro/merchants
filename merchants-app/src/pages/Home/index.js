@@ -43,26 +43,13 @@ const Home = ({ children, ...rest }) => {
           </Navbar>
         </Col>
 
-        <Col xs={12} className="flex-grow-1">
+        
           <main className="h-100">
             <Container>
               <Outlet />
             </Container>
           </main>
-        </Col>
-
-        <Col xs={12}>
-          <Navbar
-            fixed="bottom"
-            bg="dark"
-            variant="dark"
-            className="justify-content-md-center"
-          >
-            <Navbar.Brand href="#home" className="text-center">
-              Footer
-            </Navbar.Brand>
-          </Navbar>
-        </Col>
+        
       </Row>
     </Container>
   );

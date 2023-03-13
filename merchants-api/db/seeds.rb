@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -10,8 +12,7 @@ def create_fake_users
   admin_email = 'admin@example.com'
   merchant_emails = ['test@example.com', 'merchant@example.com']
 
-  Admin.create!(status: true, name: Faker::Name.name, email: admin_email, password: '12345678',
-                password_confirmation: '12345678')
+  Admin.create!(name: Faker::Name.name, email: admin_email, password: '12345678', password_confirmation: '12345678')
 
   merchant_emails.each do |merchant_email|
     Merchant.create!(status: true, name: Faker::Company.name, description: Faker::Company.industry,
@@ -21,13 +22,15 @@ end
 
 def create_fake_transactions
   Merchant.all.each do |merchant|
-    authorize = AuthorizeTransaction.create!(user_id: merchant.id, amount: rand(2000..4000), customer_email: Faker::Internet.email,
-                                             customer_phone: Faker::PhoneNumber.cell_phone_with_country_code, 
+    authorize = AuthorizeTransaction.create!(merchant_id: merchant.id, amount: rand(2000..4000), customer_email: Faker::Internet.email,
+                                             customer_phone: Faker::PhoneNumber.cell_phone_with_country_code,
                                              notification_url: 'http:/example.com/notifications')
 
-    capture = CaptureTransaction.create!(user_id: authorize.user_id, parent: authorize, amount: authorize.amount, customer_email: authorize.customer_email,
-                                           customer_phone: authorize.customer_phone, 
-                                           notification_url: nil)
+    authorize.approving!
+
+    capture = CaptureTransaction.create!(merchant_id: authorize.merchant_id, parent: authorize, amount: authorize.amount, customer_email: authorize.customer_email,
+                                         customer_phone: authorize.customer_phone,
+                                         notification_url: nil)
     capture.approving!
   end
 end

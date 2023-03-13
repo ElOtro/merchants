@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { message } from "antd";
 
-export const baseURL = "http://localhost:4000";
+export const baseURL = "http://localhost:4000/v1";
 
 const api = axios.create({
   baseURL,

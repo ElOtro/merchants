@@ -1,0 +1,39 @@
+post:
+  tags:
+    - Login
+  description: Merchant's authentication by email and password.
+  summary:    Merchant's authentication by email and password.
+  requestBody:
+    content:
+      application/json:
+        schema:
+          properties:
+            email:
+              type: string
+              description: Merchant's email.
+              required: true
+            password:
+              type: string
+              description: Merchant's password.
+              required: true
+  responses:
+    '200':
+      description: successful
+      content:
+        application/json:
+          example:
+            token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImV4cCI6MTY3ODUwMzI1MSwiaXNzIjoibWVyY2hhbnQtYXBpIiwiYXVkIjoibWVyY2hhbnQtYXBpIn0.aK7HmDTyuGmvUjl06zy2F8llq-SXPGywR0dbbUKA43A"
+delete:
+  tags:
+    - Logout
+  description: Delete session.
+  summary:    Delete session.
+  parameters:
+  - name: Authorization
+    in: header
+    type: string
+    required: true
+    description: Bearer token.
+  responses:
+    '204':
+      description: successful

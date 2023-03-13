@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
-class DeviseCreateUsers < ActiveRecord::Migration[7.0]
+class DeviseCreateMerchants < ActiveRecord::Migration[7.0]
   def change
-    enable_extension 'uuid-ossp'
-
-    create_table :users do |t|
+    create_table :merchants do |t|
       ## Custom
       t.boolean :status, default: false, index: true, comment: 'activated or not'
       t.string :name, comment: 'name'
       t.string :description, comment: 'description'
-      t.string :type, comment: 'type of user'
-      t.uuid :uuid, null: false, default: 'uuid_generate_v4()', index: true
       ## Database authenticatable
       t.string :email,              null: false, default: ''
       t.string :encrypted_password, null: false, default: ''
@@ -43,9 +39,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.timestamps null: false
     end
 
-    add_index :users, :email,                unique: true
-    add_index :users, :reset_password_token, unique: true
-    # add_index :users, :confirmation_token,   unique: true
-    # add_index :users, :unlock_token,         unique: true
+    add_index :merchants, :email,                unique: true
+    add_index :merchants, :reset_password_token, unique: true
+    # add_index :merchants, :confirmation_token,   unique: true
+    # add_index :merchants, :unlock_token,         unique: true
   end
 end

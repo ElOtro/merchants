@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails'
@@ -40,7 +42,7 @@ module MerchantsApi
     config.api_only = true
 
     config.log_level = :debug
-    config.logger    = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+    config.logger    = ActiveSupport::TaggedLogging.new(Logger.new($stdout))
 
     config.cache_store = :redis_store, ENV['CACHE_URL'],
                          { namespace: 'merchants::cache' }

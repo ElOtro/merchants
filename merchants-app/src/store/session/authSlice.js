@@ -13,32 +13,37 @@ export const authSlice = createSlice({
     initialState,
     reducers: null,
     extraReducers: {
-        [signOut.pending]: (state) => {
-            state.isLoading = true;
-        },
         [signOut.fulfilled]: (state) => {
-            state.isAuthenticated = false;
-            state.isAuthorized = false;
             state.isLoading = false;
             state.user = null;
-        },
-        [signOut.rejected]: (state) => {
-            state.isLoading = false;
         },
         // login
         [login.pending]: (state) => {
             state.isLoading = true;
         },
-        [login.fulfilled]: (state, action) => {
-            const {user} = action.payload;
+        [login.fulfilled]: (state) => {
             state.isAuthenticated = true;
-            state.isAuthorized = true;
             state.isLoading = false;
-            state.user = user;
         },
         [login.rejected]: (state) => {
             state.isLoading = false;
         },
+        // fetchUser
+        [fetchUser.pending]: (state) => {
+            state.isLoading = true;
+            state.isAuthorized = false;
+        },
+        [fetchUser.fulfilled]: (state, action) => {
+            const {data} = action.payload;
+            state.user = data;
+            state.isLoading = false;
+            state.isAuthorized = true;
+        },
+        [fetchUser.rejected]: (state) => {
+            state.isLoading = false;
+            state.user = null;
+            state.isAuthorized = false;
+        }
     },
 })
 

@@ -2,7 +2,7 @@
 
 class AuthorizeTransaction < Transaction
   has_many :transactions, as: :parent, dependent: :destroy
-  has_many :capture_transactions,  -> { where status: %i[approved captured, refunded], type: 'CaptureTransaction' },
+  has_many :capture_transactions,  -> { where status: %i[approved captured refunded], type: 'CaptureTransaction' },
            as: :parent, dependent: :destroy
 
   validates :notification_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https])

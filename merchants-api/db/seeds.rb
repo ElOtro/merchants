@@ -67,6 +67,6 @@ def create_fake_refund_transactions
 end
 
 create_fake_users
-# create_fake_authorize_transactions
-# create_fake_capture_transactions
-# create_fake_refund_transactions
+create_fake_authorize_transactions
+create_fake_capture_transactions
+create_fake_refund_transactions

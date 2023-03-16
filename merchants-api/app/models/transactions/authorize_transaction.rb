@@ -14,6 +14,7 @@ class AuthorizeTransaction < Transaction
     state :approved
     state :captured
     state :voided
+    state :refunded
     state :error
 
     event :pending do
@@ -30,6 +31,10 @@ class AuthorizeTransaction < Transaction
 
     event :voiding do
       transitions from: [:approved], to: :voided
+    end
+
+    event :refunding do
+      transitions from: %i[pending approved captured], to: :refunded
     end
 
     event :declining do

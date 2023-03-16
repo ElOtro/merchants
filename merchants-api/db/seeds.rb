@@ -55,7 +55,9 @@ end
 def create_fake_refund_transactions
   CaptureTransaction.where(status: [:approved]).take(4).each do |capture_transaction|
     created_at = capture_transaction.created_at + [1, 2, 3].sample.days
-    refund = RefundTransaction.create!(merchant_id: capture_transaction.merchant_id, parent: capture_transaction, amount: capture_transaction.amount,
+    refund = RefundTransaction.create!(merchant_id: capture_transaction.merchant_id,
+                                       parent: capture_transaction,
+                                       amount: capture_transaction.amount,
                                        customer_email: capture_transaction.customer_email,
                                        customer_phone: capture_transaction.customer_phone,
                                        notification_url: nil,
@@ -65,6 +67,6 @@ def create_fake_refund_transactions
 end
 
 create_fake_users
-create_fake_authorize_transactions
-create_fake_capture_transactions
-create_fake_refund_transactions
+# create_fake_authorize_transactions
+# create_fake_capture_transactions
+# create_fake_refund_transactions

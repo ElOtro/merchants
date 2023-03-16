@@ -2,7 +2,7 @@
 
 module Factories
   module Transactions
-    class Capture
+    class Void
       attr_reader :params
 
       def initialize(params)
@@ -13,11 +13,9 @@ module Factories
         parent = AuthorizeTransaction.find_by(uuid: params[:parent_id])
         raise 'Invalid parent transaction.' unless parent
 
-        attributes = { merchant_id: params[:merchant_id],
-                       parent:,
-                       amount: params[:amount] }
+        attributes = { merchant_id: params[:merchant_id], parent: }
 
-        CaptureTransaction.new(attributes)
+        VoidTransaction.new(attributes)
       end
     end
   end

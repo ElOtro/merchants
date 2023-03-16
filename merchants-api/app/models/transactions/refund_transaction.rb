@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class RefundTransaction < Transaction
-  belongs_to :parent, -> { where status: %i[approved refunded] }, polymorphic: true
+  belongs_to :parent, -> { where status: %i[approved refunded] }, polymorphic: true, optional: true
   validates :amount, numericality: { greater_than: 0 }
-  # validate  :amount, :total_amount
 
   aasm :status, namespace: :status, column: :status, enum: true, whiny_persistence: false do
     state :pending, initial: true
@@ -18,9 +17,15 @@ class RefundTransaction < Transaction
     end
 
     event :declining do
-      before do
-      end
       transitions from: [:pending], to: :error
+    end
+  end
+
+  def transition_to_next_state
+    if !parent.nil? && merchant == parent&.merchant &&  total_amount_is_sufficient?
+      approving!
+    else
+      declining!
     end
   end
 
@@ -30,10 +35,7 @@ class RefundTransaction < Transaction
     parent.refund_transactions.sum(:amount) == parent.amount
   end
 
-  def total_amount
-    return if (parent.refund_transactions.sum(:amount) + amount) <= parent.amount
-
-    errors.add(:amount,
-               'amount is more than in parent transaction')
+  def total_amount_is_sufficient?
+    (parent.refund_transactions.sum(:amount) + amount) <= parent.amount
   end
 end

@@ -19,11 +19,11 @@ module Queries
     private
 
     def by_status(scope, status = nil)
-      status ? scope.where(status: status) : scope
+      status ? scope.where(status:) : scope
     end
 
     def by_type(scope, type = nil)
-      type ? scope.where(type: type) : scope
+      type ? scope.where(type:) : scope
     end
 
     def sort_column(scope, sort, direction)

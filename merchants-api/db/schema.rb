@@ -46,16 +46,16 @@ ActiveRecord::Schema[7.0].define(version: 20_230_309_011_753) do
   end
 
   create_table 'transactions', force: :cascade do |t|
-    t.bigint 'merchant_id', null: false
-    t.bigint 'parent_id'
-    t.string 'parent_type'
-    t.string 'type'
-    t.uuid 'uuid'
-    t.bigint 'amount'
+    t.bigint 'merchant_id', null: false, comment: 'Merchant'
+    t.bigint 'parent_id', comment: 'Parent transaction ID'
+    t.string 'parent_type', comment: 'Parent transaction type'
+    t.string 'type', comment: 'Used for STI'
+    t.uuid 'uuid', comment: 'UUID'
+    t.bigint 'amount', default: 0, comment: 'Amount of transaction'
     t.integer 'status'
     t.text 'customer_email', default: '', null: false
     t.text 'customer_phone'
-    t.text 'notification_url'
+    t.text 'notification_url', comment: 'Used for callback'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.index ['merchant_id'], name: 'index_transactions_on_merchant_id'

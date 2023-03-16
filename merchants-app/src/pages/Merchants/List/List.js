@@ -5,14 +5,6 @@ import { Row, Col, Nav, Table, Button, Badge } from "react-bootstrap";
 const List = ({ merchants = [] }) => {
   const navigate = useNavigate();
 
-  const onCreate = () => {
-    navigate.push("/merchants/new");
-  };
-
-  const onDelete = (values) => {
-    // console.log(values);
-  };
-
   return (
     <Row>
       <Col>

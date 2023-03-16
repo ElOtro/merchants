@@ -25,9 +25,6 @@ class CaptureTransaction < Transaction
     end
 
     event :refunding do
-      after do
-        parent.refunding! if can_parent_transit?
-      end
       transitions from: [:approved], to: :refunded
     end
   end

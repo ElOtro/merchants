@@ -21,9 +21,8 @@ class RefundTransaction < Transaction
     end
   end
 
-
   def transition_to_next_state
-    if !parent.nil? && merchant == parent&.merchant &&  total_amount_is_sufficient?
+    if !parent.nil? && merchant == parent&.merchant && total_amount_is_sufficient?
       approving!
     else
       declining!

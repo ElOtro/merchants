@@ -11,7 +11,7 @@ module Factories
 
       def build
         parent = CaptureTransaction.find_by(uuid: params[:parent_id])
-        raise 'Invalid parent.' unless parent
+        raise 'Invalid parent transaction.' unless parent
 
         attributes = { merchant_id: params[:merchant_id],
                        parent:,

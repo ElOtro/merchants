@@ -10,6 +10,7 @@ module V1
       # create new Transaction Object from factories
       transaction = Factories::Transactions::Base.for(current_merchant, payment_params).build
       if transaction.valid? && transaction.save
+        transaction.reload.transition_to_next_state
         payload = V1::TransactionPaymentSerializer.new(transaction).to_hash.dig(:data, :attributes)
 
         render json: { data: payload }, status: :created

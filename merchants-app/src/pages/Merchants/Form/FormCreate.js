@@ -20,30 +20,29 @@ const FormCreate = ({ merchantID, merchant = [] }) => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
-
-    event.preventDefault();
-    setValidated(true);
-    dispatch(
-      postMerchant({
-        payload: {
-          merchant: {
-            status: status,
-            email: email,
-            name: name,
-            description: description,
-            password: password,
-            password_confirmation: password_confirmation,
+    } else {
+      event.preventDefault();
+      dispatch(
+        postMerchant({
+          payload: {
+            merchant: {
+              status: status,
+              email: email,
+              name: name,
+              description: description,
+              password: password,
+              password_confirmation: password_confirmation,
+            },
           },
-        },
-      })
-    ).then(() => {
-      navigate("/merchants");
-    });
+        })
+      ).then(() => {
+        navigate("/merchants");
+      });
+    }
   };
 
   return (
-    <Form noValidate validated={validated} onSubmit={onSubmit}>
+    <Form validated={validated} onSubmit={onSubmit}>
       <Form.Group className="mb-3">
         <Form.Label>Status</Form.Label>
         <Form.Check

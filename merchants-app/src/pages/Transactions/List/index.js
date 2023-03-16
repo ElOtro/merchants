@@ -14,11 +14,7 @@ const Transactions = () => {
     dispatch(fetchTransactions());
   }, [dispatch]);
 
-  return isLoading ? (
-    <Loading />
-  ) : (
-    <List transactions={transactions} />
-  );
+  return isLoading ? <Loading /> : <List transactions={transactions} />;
 };
 
 export default Transactions;

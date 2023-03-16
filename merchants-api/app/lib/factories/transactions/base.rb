@@ -6,7 +6,8 @@ module Factories
       TYPES = {
         authorize: Factories::Transactions::Authorize,
         capture: Factories::Transactions::Capture,
-        refund: Factories::Transactions::Refund
+        refund: Factories::Transactions::Refund,
+        void: Factories::Transactions::Void
       }.freeze
 
       def self.for(merchant, params)

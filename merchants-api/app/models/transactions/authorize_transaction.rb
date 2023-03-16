@@ -2,7 +2,7 @@
 
 class AuthorizeTransaction < Transaction
   has_many :transactions, as: :parent, dependent: :destroy
-  has_many :capture_transactions,  -> { where status: %i[approved captured, refunded], type: 'CaptureTransaction' },
+  has_many :capture_transactions,  -> { where status: %i[approved captured refunded], type: 'CaptureTransaction' },
            as: :parent, dependent: :destroy
 
   validates :notification_url, format: URI::DEFAULT_PARSER.make_regexp(%w[http https])
@@ -30,7 +30,7 @@ class AuthorizeTransaction < Transaction
     end
 
     event :voiding do
-      transitions from: %i[pending approved], to: :voided
+      transitions from: [:approved], to: :voided
     end
 
     event :refunding do
@@ -40,5 +40,13 @@ class AuthorizeTransaction < Transaction
     event :declining do
       transitions from: [:pending], to: :error
     end
+  end
+
+  def transition_to_next_state
+    approving!
+  end
+
+  def parent
+    nil
   end
 end

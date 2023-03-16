@@ -16,10 +16,12 @@ export const statuses = (status) => {
   switch (status) {
     case "error":
       return <Badge bg="danger">{status}</Badge>;
-    case "approved":
+    case "captured":
       return <Badge bg="success">{status}</Badge>;
     case "pending":
       return <Badge bg="warning">{status}</Badge>;
+    case "refunded":
+        return <Badge bg="info">{status}</Badge>;
     default:
       return <Badge bg="secondary">{status}</Badge>;
   }

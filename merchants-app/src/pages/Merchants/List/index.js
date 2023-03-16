@@ -16,7 +16,7 @@ const Merchants = () => {
   return isLoading ? (
     <Loading />
   ) : (
-    <List isLoading={isLoading} merchants={merchants} />
+    <List merchants={merchants} />
   );
 };
 

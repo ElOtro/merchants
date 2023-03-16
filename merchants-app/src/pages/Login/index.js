@@ -11,7 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
-  
+
   const [email, setEmail] = useState("admin@example.com");
   const [password, setPassword] = useState("12345678");
   const [credentialError, setCredentialError] = useState(false);
@@ -21,13 +21,13 @@ const Login = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      event.preventDefault();
+      setValidated(true);
+      dispatch(login({ email: email, password: password })).then(() => {
+        navigate("/");
+      });
     }
-    
-    event.preventDefault();
-    setValidated(true);
-    dispatch(login({ email: email, password: password })).then(() => {
-      navigate("/");
-    });
   };
 
   return (

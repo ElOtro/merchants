@@ -4,12 +4,12 @@ module V1
   # Serializer for transactions
   class TransactionPaymentSerializer
     include JSONAPI::Serializer
-    attributes :status, :amount, :created_at
+    attributes :status, :created_at
 
+    attribute :amount, if: proc { |record| record.amount.positive? }, &:amount
     attribute :id, &:uuid
-
-    attribute :parent_id, if: proc { |record| record.respond_to? :parent } do |transaction|
-      transaction.parent.uuid
+    attribute :parent_id, if: proc { |record| record.parent } do |transaction|
+      transaction.parent&.uuid
     end
   end
 end

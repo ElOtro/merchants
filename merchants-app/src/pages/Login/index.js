@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { login } from "../../store/session/actions";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./login.css";
@@ -14,7 +14,6 @@ const Login = () => {
 
   const [email, setEmail] = useState("admin@example.com");
   const [password, setPassword] = useState("12345678");
-  const [credentialError, setCredentialError] = useState(false);
 
   const onSubmit = (event) => {
     const form = event.currentTarget;

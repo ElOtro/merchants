@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { message } from "antd";
+import Alert from "react-bootstrap/Alert";
 
 export const baseURL = "http://localhost:4000/v1";
 
@@ -12,18 +12,16 @@ const api = axios.create({
 });
 
 export const showErrors = (payload) => {
-  const { error } = payload;
-  if (error) {
-    Object.entries(error).map((e) => {
-      // return message.error(e.join(" "));
-      console.log(e);
+  const { errors } = payload;
+  if (errors) {
+    errors.map((error, i) => {
+      return (
+        <Alert key={i} variant="danger">
+          {error}
+        </Alert>
+      );
     });
   }
-};
-
-export const showSuccess = (payload) => {
-  console.log(payload);
-  // message.success(payload);
 };
 
 export default api;

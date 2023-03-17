@@ -18,6 +18,9 @@ class AuthorizeTransaction < Transaction
     state :error
 
     event :pending do
+      after do
+        # ProcessTransitionJob.perform_later(self)
+      end
       transitions from: [:approved], to: :pending
     end
 

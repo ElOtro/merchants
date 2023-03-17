@@ -24,7 +24,7 @@ module V1
       if @merchant.save
         render json: @merchant, status: :created
       else
-        render json: @merchant.errors, status: :unprocessable_entity
+        render json: { errors: @merchant.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
@@ -33,13 +33,17 @@ module V1
       if @merchant.update(merchant_params)
         render json: @merchant
       else
-        render json: @merchant.errors, status: :unprocessable_entity
+        render json: { errors: @merchant.errors.full_messages }, status: :unprocessable_entity
       end
     end
 
     # DELETE /merchants/1
     def destroy
-      @merchant.destroy
+      if @merchant.valid?(:destroy)
+        @merchant.destroy
+      else
+        render json: { errors: @merchant.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     private

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getToken, removeToken, setToken } from "../../utils/HelperFunctions";
-import api, { showErrors, showSuccess } from "../../services/api";
+import api from "../../services/api";
 
 export const fetchUser = createAsyncThunk('auth/fetchUser', async (_, {rejectWithValue}) => {
   try{
@@ -27,7 +27,6 @@ export const login = createAsyncThunk(
       if (!err.response) {
         throw err;
       }
-      showErrors(err.response);
       return rejectWithValue(err.response);
     }
   }
@@ -46,7 +45,6 @@ export const signOut = createAsyncThunk(
       if (!err.response) {
         throw err;
       }
-      showErrors(err.response);
       return rejectWithValue(err.response);
     }
   }

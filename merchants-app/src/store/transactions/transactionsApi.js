@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getToken } from "../../utils/HelperFunctions";
-import api, { showErrors, showSuccess } from "../../services/api";
+import api from "../../services/api";
 
 export const fetchTransactions = createAsyncThunk(
   "transactions/fetchTransactions",
@@ -43,13 +43,11 @@ export const updateTransaction = createAsyncThunk(
       const accessToken = getToken();
       api.defaults.headers.Authorization = `Bearer ${accessToken}`;
       const response = await api.patch(`/transactions/${id}`, data);
-      showSuccess('Transaction updated successfully!');
       return response.data;
     } catch (err) {
       if (!err.response) {
         throw err
       }
-      showErrors(err.response.data);
       return rejectWithValue(err.response.data);
     }
   }

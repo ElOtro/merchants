@@ -19,7 +19,7 @@ def create_fake_authorize_transactions
     end_date    = DateTime.now
     random_date = Time.at((start_date.to_f - end_date.to_f) * rand + end_date.to_f)
 
-    10.times do
+    15.times do
       authorize = AuthorizeTransaction.create!(merchant_id: merchant.id,
                                                amount: rand(2000..4000),
                                                customer_email: Faker::Internet.email,
@@ -38,8 +38,18 @@ def create_fake_authorize_transactions
   end
 end
 
+def create_fake_void_transactions
+  AuthorizeTransaction.where(status: :approved).each do |authorize_transaction|
+    void = VoidTransaction.create!(merchant_id: authorize_transaction.merchant_id,
+                                   parent: authorize_transaction,
+                                   created_at: authorize_transaction.created_at,
+                                   updated_at: authorize_transaction.updated_at)
+    void.approving!
+  end
+end
+
 def create_fake_capture_transactions
-  AuthorizeTransaction.where(status: 'approved').each do |authorize_transaction|
+  AuthorizeTransaction.where(status: :approved).each do |authorize_transaction|
     capture = CaptureTransaction.create!(merchant_id: authorize_transaction.merchant_id,
                                          parent: authorize_transaction,
                                          amount: authorize_transaction.amount,
@@ -68,5 +78,6 @@ end
 
 create_fake_users
 create_fake_authorize_transactions
+create_fake_void_transactions
 create_fake_capture_transactions
 create_fake_refund_transactions

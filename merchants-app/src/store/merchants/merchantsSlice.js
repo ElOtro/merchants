@@ -3,6 +3,7 @@ import {
   fetchMerchants,
   fetchMerchant,
   updateMerchant,
+  deleteMerchant
 } from "./merchantsApi";
 
 const initialState = {
@@ -26,43 +27,29 @@ const initialState = {
     limit: 15,
   },
   isError: false,
-  error: {},
-  isLoading: false,
-  isUploadingLogo: false,
-};
-
-const emptyMerchant = {
-  name: null,
-  full_name: null,
-  ceo: null,
-  ceo_title: null,
-  cfo: null,
-  cfo_title: null,
-  is_vat_payer: false,
-  details: {},
-  bank_accounts: [],
+  errors: [],
+  isLoading: false
 };
 
 export const merchantsSlice = createSlice({
   name: "merchants",
   initialState,
-  reducers: {
-    merchantAdded(state) {
-      state.merchant = emptyMerchant;
-    },
-  },
   extraReducers: {
     // fetch all #####################
     [fetchMerchants.pending]: (state) => {
       state.isLoading = true;
+      state.isError = false;
     },
     [fetchMerchants.fulfilled]: (state, action) => {
       const { data, meta } = action.payload;
       state.merchants = data;
       state.isLoading = false;
     },
-    [fetchMerchants.rejected]: (state) => {
+    [fetchMerchants.rejected]: (state, action) => {
+      const { errors } = action.payload;
       state.isLoading = false;
+      state.isError = true;
+      state.errors = errors;
     },
     // fetch one #####################
     [fetchMerchant.pending]: (state) => {
@@ -73,14 +60,17 @@ export const merchantsSlice = createSlice({
       state.merchant = data.attributes;
       state.isLoading = false;
     },
-    [fetchMerchant.rejected]: (state) => {
+    [fetchMerchant.rejected]: (state, action) => {
+      const { errors } = action.payload;
       state.isLoading = false;
+      state.isError = true;
+      state.errors = errors;
     },
     // patch #########################
     [updateMerchant.pending]: (state) => {
       state.isLoading = true;
       state.isError = false;
-      state.error = {};
+      state.errors = [];
     },
     [updateMerchant.fulfilled]: (state, action) => {
       const { data } = action.payload;
@@ -88,10 +78,25 @@ export const merchantsSlice = createSlice({
       state.isLoading = false;
     },
     [updateMerchant.rejected]: (state, action) => {
-      const { error } = action.payload;
+      const { errors } = action.payload;
       state.isLoading = false;
       state.isError = true;
-      state.error = error;
+      state.errors = errors;
+    },
+    // delete #########################
+    [deleteMerchant.pending]: (state) => {
+      state.isLoading = true;
+      state.isError = false;
+      state.errors = [];
+    },
+    [deleteMerchant.fulfilled]: (state) => {
+      state.isLoading = false;
+    },
+    [deleteMerchant.rejected]: (state, action) => {
+      const { errors } = action.payload;
+      state.isLoading = false;
+      state.isError = true;
+      state.errors = errors;
     },
     // ##############################
   },

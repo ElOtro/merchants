@@ -19,7 +19,7 @@ class AuthorizeTransaction < Transaction
 
     event :pending do
       after do
-        # ProcessTransitionJob.perform_later(self)
+        ProcessNotificationJob.perform_later(id) if ENV['JOB_WORKER_PERFORM'] == 'true'
       end
       transitions from: [:approved], to: :pending
     end
@@ -41,7 +41,7 @@ class AuthorizeTransaction < Transaction
     end
 
     event :declining do
-      transitions from: [:pending], to: :error
+      transitions from: %i[pending approved], to: :error
     end
   end
 

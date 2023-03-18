@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe ProcessTransitionJob, type: :job do
+RSpec.describe ProcessNotificationJob, type: :job do
   pending "add some examples to (or delete) #{__FILE__}"
 end
